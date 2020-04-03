@@ -55,3 +55,31 @@ Script to convert posts from Blogger to Markdown.
 * I want to retain comments. Believe it or not, There were some **good** comments.
 * Was sick and spent around ~12 hrs over 5 days in coding and testing with my blog contents over ~150 posts. And also, I find parsing _oddly satisfying_ when it result in success. `¯\_(ツ)_/¯`
 
+
+
+## 나의 추가 사항
+
+### subscript, superscript html 보존
+
+* 아래 라인을 추가하면 해결됨
+
+<pre><code>
+var tds = new TurndownService({ codeBlockStyle: 'fenced', fence: '```' })
+tds.keep(['sup', 'sub']) # 이 라인을 추가하면 해결됨
+</code></pre>
+
+
+### WordPress의 엔터키를 유지
+
+* 이 링크 참조 https://github.com/domchristie/turndown/issues/264
+* /node_modules/turndown/lib/turndown.cjs.js 에서 아래와 같이 변경하면 해결됨
+
+<pre><code>
+while (node !== element) {
+  if (node.nodeType === 3 || node.nodeType === 4) { // Node.TEXT_NODE or Node.CDATA_SECTION_NODE
+    //Original code
+    //var text = node.data.replace(/[ \r\n\t]+/g, ' ');
+
+    //Changed code
+    var text = node.data.replace(/[ \r\t]+/g, ' ');
+</code></pre>

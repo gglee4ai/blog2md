@@ -14,6 +14,8 @@ const TurndownService = require('turndown');
 var moment = require('moment');
 
 var tds = new TurndownService({ codeBlockStyle: 'fenced', fence: '```' })
+tds.keep(['sup', 'sub'])
+
 
 tds.addRule('wppreblock', {
     filter: ['pre'],
